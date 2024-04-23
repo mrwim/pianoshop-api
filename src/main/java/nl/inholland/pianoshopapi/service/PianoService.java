@@ -1,51 +1,43 @@
 package nl.inholland.pianoshopapi.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import nl.inholland.pianoshopapi.model.Piano;
 import nl.inholland.pianoshopapi.model.PianoDTO;
+import nl.inholland.pianoshopapi.repository.PianoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.random.RandomGenerator;
 
 @Service
 public class PianoService {
+    private PianoRepository pianoRepository;
 
-    private List<Piano> pianos;
-
-    private RandomGenerator randomGenerator;
-
-    public PianoService(List<Piano> allPianos, RandomGenerator randomGenerator) {
-        this.pianos = allPianos;
-        this.randomGenerator = randomGenerator;
+    public PianoService(PianoRepository pianoRepository) {
+        this.pianoRepository = pianoRepository;
     }
 
     public List<Piano> getAllPianos() {
-        return pianos;
+        return pianoRepository.findAll();
     }
 
     public Piano getPianoById(long id) {
-        return pianos.stream()
-                .filter(piano -> piano.getId() == id)
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+        return pianoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Guitar not found"));
     }
 
     public Piano addPiano(PianoDTO pianoDTO) {
         Piano piano = new Piano(
-                randomGenerator.nextLong(),
                 pianoDTO.brand(),
                 pianoDTO.model(),
                 pianoDTO.year()
         );
-        pianos.add(piano);
+        pianoRepository.save(piano);
         return piano;
     }
 
     public Piano updatePiano(long id, PianoDTO pianoDTO) {
-        Piano piano = pianos.stream()
-                .filter(p -> p.getId() == id)
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+        Piano piano = pianoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Piano not found"));
         piano.setBrand(pianoDTO.brand());
         piano.setModel(pianoDTO.model());
         piano.setYear(pianoDTO.year());
@@ -53,6 +45,6 @@ public class PianoService {
     }
 
     public void deletePiano(long id) {
-        pianos.removeIf(piano -> piano.getId() == id);
+        pianoRepository.deleteById(id);
     }
 }

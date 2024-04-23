@@ -46,7 +46,7 @@ public class PianoController {
         try {
             Piano piano = pianoService.getPianoById(id);
             return ResponseEntity.status(HttpStatus.OK).body(piano);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             return createPianoNotFoundResponse(id);
         }
     }

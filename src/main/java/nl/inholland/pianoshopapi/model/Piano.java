@@ -1,46 +1,30 @@
 package nl.inholland.pianoshopapi.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@NoArgsConstructor
+@Data
+@SequenceGenerator(name = "PIANO_SEQ", initialValue = 100001, allocationSize = 10)
 public class Piano {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     private String brand;
     private String model;
     private int year;
 
-    public Piano() {
-    }
-
-    public Piano(long id, String brand, String model, int year) {
-        this.id = id;
+    public Piano(String brand, String model, int year) {
         this.brand = brand;
         this.model = model;
         this.year = year;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
 }
