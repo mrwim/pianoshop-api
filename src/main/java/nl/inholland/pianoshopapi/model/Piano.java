@@ -1,6 +1,5 @@
 package nl.inholland.pianoshopapi.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,7 +19,6 @@ public class Piano {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
     @ManyToOne
-    @JsonBackReference
     private Brand brand;
     private String model;
     private int year;

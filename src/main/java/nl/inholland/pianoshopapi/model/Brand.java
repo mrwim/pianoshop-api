@@ -1,6 +1,7 @@
 package nl.inholland.pianoshopapi.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,11 +22,12 @@ public class Brand {
     @GeneratedValue
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
     private String description;
 
     @OneToMany(mappedBy = "brand", fetch = FetchType.EAGER)
-    @JsonManagedReference
+    @JsonIgnore
     private List<Piano> pianos = new ArrayList<>();
 
     public Brand(String name, String description) {
