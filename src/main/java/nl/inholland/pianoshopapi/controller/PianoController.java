@@ -5,6 +5,7 @@ import nl.inholland.pianoshopapi.model.dto.PianoDTO;
 import nl.inholland.pianoshopapi.service.PianoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,7 @@ public class PianoController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN_ROLE')")
     public ResponseEntity<Object> getPianos() {
         return ResponseEntity.status(200)
                 .body(pianoService.getAllPianos());
