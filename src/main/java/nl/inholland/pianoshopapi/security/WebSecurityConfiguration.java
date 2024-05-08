@@ -26,13 +26,23 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
 
-        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.authorizeHttpRequests(requests -> requests.requestMatchers("/login").permitAll());
-        http.authorizeHttpRequests(requests -> requests.requestMatchers("/h2-console").permitAll());
+        http.sessionManagement(
+                session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        http.authorizeHttpRequests(
+                requests ->
+                        requests.requestMatchers("/login").permitAll());
+        http.authorizeHttpRequests(
+                requests ->
+                        requests.requestMatchers("/h2-console").permitAll());
 
-        http.authorizeHttpRequests(requests -> requests.requestMatchers("/pianos").authenticated());
+        http.authorizeHttpRequests(
+                requests ->
+                        requests.requestMatchers("/pianos").authenticated());
 
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtFilter,
+                UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 }
