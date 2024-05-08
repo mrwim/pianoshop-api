@@ -39,7 +39,7 @@ public class ApplicationStarter implements ApplicationRunner {
         pianoRepository.save(piano);
         Stock stock = new Stock(piano, 15);
         stockRepository.save(stock);
-        User user = userService.createUser(new User(1, "admin", "admin", List.of(Role.ADMIN_ROLE)));
+        userService.createUser(new User(1, "admin", "admin", List.of(Role.ROLE_ADMIN)));
         userService.getUsers().forEach(System.out::println);
     }
 

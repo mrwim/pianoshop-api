@@ -3,7 +3,7 @@ package nl.inholland.pianoshopapi.model;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-    USER_ROLE, ADMIN_ROLE;
+    ROLE_USER, ROLE_ADMIN;
 
     @Override
     public String getAuthority() {

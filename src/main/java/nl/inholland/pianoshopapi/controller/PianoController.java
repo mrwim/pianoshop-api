@@ -23,7 +23,7 @@ public class PianoController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN_ROLE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Object> getPianos() {
         return ResponseEntity.status(200)
                 .body(pianoService.getAllPianos());
